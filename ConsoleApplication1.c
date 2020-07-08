@@ -64,7 +64,7 @@ int sendmsg(char msg[])
 	strcat(str1, "POST http://sms-api.upyun.com/api/messages HTTP/1.1\r\n");
 	strcat(str1, "Host: sms-api.upyun.com\r\n");
 	strcat(str1, "Connection: close\r\n");
-	strcat(str1, "Authorization: \r\n");
+	strcat(str1, "Authorization: <your token>\r\n");
 	strcat(str1, "Content-Type: application/json\r\n");
 	strcat(str1, "Content-Length: ");
 	strcat(str1, str);
@@ -134,13 +134,13 @@ int main(int argc, char** argv)
 	memset(curtime, 0, sizeof(curtime));
 	sprintf(curtime, "\"%d/%d/%d %d:%d:%d", 1900 + p->tm_year, 1 + p->tm_mon, p->tm_mday, p->tm_hour, p->tm_min, p->tm_sec);
 	char tail[] = "\"}";
-	char startp[105] = "{\"template_id\": 2894,\r\n\"mobile\": \"17312902786\",\r\n\"vars\": ";
+	char startp[105] = "{\"template_id\": <your_id>,\r\n\"mobile\": \"<your_phone>\",\r\n\"vars\": ";
 	strcat(startp, curtime);
 	strcat(startp, tail);
-	char shutdown[105] = "{\"template_id\": 2896,\r\n\"mobile\": \"17312902786\",\r\n\"vars\": ";
+	char shutdown[105] = "{\"template_id\": <your_id>,\r\n\"mobile\": \"<your_phone>\",\r\n\"vars\": ";
 	strcat(shutdown, curtime);
 	strcat(shutdown, tail);
-	char logon[105] = "{\"template_id\": 2895,\r\n\"mobile\": \"17312902786\",\r\n\"vars\": ";
+	char logon[105] = "{\"template_id\": <your_id>,\r\n\"mobile\": \"<your_phone>\",\r\n\"vars\": ";
 	CHAR  cUserNameBuffer[256];
 	DWORD dwUserNameSize = 256;
 	GetUserNameW(cUserNameBuffer, &dwUserNameSize);
