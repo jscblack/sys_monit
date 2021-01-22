@@ -1,12 +1,13 @@
 '''
 Author       : Gehrychiang
-LastEditTime : 2021-01-22 11:03:31
+LastEditTime : 2021-01-22 11:21:31
 Website      : www.yilantingfeng.site
 E-mail       : gehrychiang@aliyun.com
 ProbTitle    : automatic monitor
 '''
 
 import smtplib
+import datetime
 import time
 import wmi
 import os
@@ -16,6 +17,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.header import Header
 #开始使用之前您需要修改以下参数
+#如果您需要同时使用短信，请跳转到74行，修改短信接口
 sender_addr='sender@sender.com'
 sender_server='smtp.sender.com'
 sender_port=994
@@ -24,21 +26,8 @@ receiver_addr='receiver@receiver.com'
 receiver_mob='receiver_mob'
 
 # 0. 准备开机信息
-local_time = time.localtime()
+cur_time=str(datetime.datetime.fromtimestamp(int(datetime.datetime.now().timestamp())))
 
-cur_time=str(local_time[0])+"."+str(local_time[1])+"."+str(local_time[2])+" "
-if(local_time[3]/10<1):
-    cur_time=cur_time+"0"+str(local_time[3])+":"
-else:
-    cur_time=cur_time+str(local_time[3])+":"
-if(local_time[4]/10<1):
-    cur_time=cur_time+"0"+str(local_time[4])+":"
-else:
-    cur_time=cur_time+str(local_time[4])+":"
-if(local_time[5]/10<1):
-    cur_time=cur_time+"0"+str(local_time[5])
-else:
-    cur_time=cur_time+str(local_time[5])
 w = wmi.WMI()
 for BIOSs in w.Win32_ComputerSystem():
         name=BIOSs.Caption
